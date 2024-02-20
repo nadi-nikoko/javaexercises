@@ -46,6 +46,7 @@ public class Conto {
         float prelivo = getFloat.nextFloat();
         if (prelivo < 0 || prelivo > getSaldoValue()){
             System.out.println("invalid action");
+
         } else{
             for (int i=0; i<movimento.length; i++){
                 if (movimento[i] == 0){
