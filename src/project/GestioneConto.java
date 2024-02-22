@@ -2,15 +2,20 @@ package project;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ContoArrayList {
+public class GestioneConto {
     static ArrayList<Float> movimento = new ArrayList<Float>();
-   
-    
+    // formato data standard mondiale "2024-02-22 12:00:00"
+    static ArrayList<String> dateMovimento = new ArrayList<String>();
+    static ArrayList<Movimento> listaMovimentos = new ArrayList<>();
     static String contoCorrente = "";
-    
+    Util helper = new Util();
+
     public static void main (String[] args){
        
         setContoCorrente();
@@ -77,9 +82,20 @@ public class ContoArrayList {
         if (prelivo <= 0 || prelivo > getSaldoValue()){
             System.out.println("invalid action");
             return;
-
         }
+        // pronti per inserire prelivo in movimenti
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter mydate = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String txtDate = dateTime.format(mydate);
+        dateMovimento.add(txtDate);
         movimento.add(-prelivo); 
+        // creo un nuovo ogetto di tipo mocimento e ad to listmovimento
+        Movimento mov = new Movimento();
+        mov.data = dateTime;
+        mov.txdata = txtDate;
+        mov.importo = -prelivo;
+        listaMovimentos.add(mov);
+
         aggiornaCC();
         System.out.println("prelivo realizado");
         }
@@ -89,7 +105,18 @@ public class ContoArrayList {
         if (versamento <= 0){
             System.out.println("invalid action");
         } else{
+             // pronti per inserire prelivo in movimenti
+             LocalDateTime dateTime = LocalDateTime.now();
+             DateTimeFormatter mydate = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+            String txtDate = dateTime.format(mydate);
+            dateMovimento.add(txtDate);
             movimento.add(versamento);
+            Movimento mov = new Movimento();
+            mov.data = dateTime;
+            mov.txdata = txtDate;
+            mov.importo = -versamento;
+            listaMovimentos.add(mov);
+    
             aggiornaCC();
             System.out.println("versamento realizado");
         }
@@ -97,13 +124,18 @@ public class ContoArrayList {
 
     static void leggeCC(){
         try{
-            File f = new File(contoCorrente + ".txt");
+            File f = new File(contoCorrente + ".csv");
             Scanner readMov = new Scanner(f);
             movimento.clear();
+            dateMovimento.clear();
+            String newMov = readMov.nextLine();
             while (readMov.hasNextLine()){
-                String newMov = readMov.nextLine();
-                float importo = Float.parseFloat(newMov);
+                newMov = readMov.nextLine();
+                //ecemplo "123.45 , 2024-02....""
+                String [] itemsMove = newMov.split(",");
+                float importo = Float.parseFloat(itemsMove[0]);
                 movimento.add(importo);
+                dateMovimento.add(itemsMove[1]);
             }
         }
         catch (Exception e){
@@ -114,11 +146,23 @@ public class ContoArrayList {
     }
 
     static void aggiornaCC() {
-        String txtfile="";
-        for (float mov: movimento){
-            txtfile = txtfile + mov + "\n";
-            try {
-                FileWriter fw = new FileWriter(contoCorrente + ".txt");
+        String txtfile= new Movimento().getHeadCSV();
+        for (Movimento mov : listaMovimentos){
+            txtfile +=  mov.getRigaCSV();
+        }
+
+        Util helper = new Util();
+        helper.salvaFileTxt(contoCorrente+".csv", txtfile);
+    }
+        
+        //int i = 0;
+        //for (float mov: movimento){
+    
+            //String data = dateMovimento.get(i);
+            //txtfile += mov + "," + data + "\n";
+            //i++;
+          /*   try {
+                FileWriter fw = new FileWriter(contoCorrente + ".csv");
                 fw.write(txtfile);
                 fw.close();
             }
@@ -126,13 +170,14 @@ public class ContoArrayList {
                 System.out.println("something went wrong");
             }
         }
-    }
+        */
 
     private static void getList() {
         System.out.println("LISTA MOVIMENT:");
         int i = 1;
             for (float mov : movimento){
-                System.out.println(i + " : " + mov);
+                String riga = i + ") " + mov + " - il " + dateMovimento.get(i-1);
+                System.out.println(riga);
                 i++;
 
             }
