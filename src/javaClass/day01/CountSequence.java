@@ -17,14 +17,15 @@ package javaClass.day01;
 
 import java.util.Scanner;
 
+import javaClass.reuseFunctions.Function;
+
 public class CountSequence {
  
     public static void main (String[] args){
         Scanner reader = new Scanner(System.in);
         while(true){
             // ask for a numbber and storage it to an integer;
-            System.out.println("give me a integer number");
-            int numberInput = reader.nextInt();
+            int numberInput = Function.readNumber("insert an integer");
             LeggiN(numberInput);
         }
     }

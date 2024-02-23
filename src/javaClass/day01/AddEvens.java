@@ -13,35 +13,38 @@
  */
 package javaClass.day01;
 
-import java.util.Scanner;
+import javaClass.reuseFunctions.Function;
 
 public class AddEvens {
 public static void main(String[] args) {
-    Scanner reader = new Scanner(System.in);
     int count = 0;
-    System.out.println("give me an integer");
-    int N = reader.nextInt();
-    System.out.println("the primos numbers are");
+    int N = Function.readNumber("insert an integer");
+    System.out.println("the even numbers are");
     int result = 0;
 
-    /*
+    
     while (count<= N){
         System.out.print(count + " ");
         result = result + count;
         count += 2;
     }
-    */
+
+    /* or with boolean 
+
     boolean isPar = true;
     while (count<=N){
         if (isPar){
             result = result + count;
-            System.out.println(count);
+            System.out.print(count + " ");
             isPar= false;
        } else isPar=true;
        count ++;
     }
+    */
 
 
     System.out.println("\nthe add of all primos is: " + result);
     }
+    
 }
+
