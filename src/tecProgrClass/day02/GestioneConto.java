@@ -1,4 +1,4 @@
-package project;
+package tecProgrClass.day02;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -14,7 +14,7 @@ public class GestioneConto {
     static ArrayList<String> dateMovimento = new ArrayList<String>();
     static ArrayList<Movimento> listaMovimentos = new ArrayList<>();
     static String contoCorrente = "";
-    Util helper = new Util();
+    static Util helper = new Util();
 
     public static void main (String[] args){
        
@@ -44,6 +44,7 @@ public class GestioneConto {
        
     }
 
+    //function to create new account
     static void setContoCorrente() {
         Scanner lettore = new Scanner(System.in);
         String conta = "";
@@ -83,11 +84,13 @@ public class GestioneConto {
             System.out.println("invalid action");
             return;
         }
-        // pronti per inserire prelivo in movimenti
+        // create a print to give date/time of the movement
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter mydate = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String txtDate = dateTime.format(mydate);
+        // storage date-time in dateMovimento array
         dateMovimento.add(txtDate);
+        // storage cashout on movimento array
         movimento.add(-prelivo); 
         // creo un nuovo ogetto di tipo mocimento e ad to listmovimento
         Movimento mov = new Movimento();
@@ -122,22 +125,29 @@ public class GestioneConto {
         }
     }
 
+    // function to check if the account is already on the system
     static void leggeCC(){
         try{
+            // add format file to contoCorrent that user wrote
             File f = new File(contoCorrente + ".csv");
+            // scan data in file
             Scanner readMov = new Scanner(f);
+            // clean movimento and dateMovimento to erase previous data
             movimento.clear();
             dateMovimento.clear();
             String newMov = readMov.nextLine();
             while (readMov.hasNextLine()){
                 newMov = readMov.nextLine();
-                //ecemplo "123.45 , 2024-02....""
+                //example "123.45, 2024-02....""
+                // action needed to convert data file in readable data for programm
                 String [] itemsMove = newMov.split(",");
+                // convert float for variable before update on system
                 float importo = Float.parseFloat(itemsMove[0]);
                 movimento.add(importo);
                 dateMovimento.add(itemsMove[1]);
             }
         }
+        // in case of error
         catch (Exception e){
             System.out.println("conta doesnt existe");
             movimento.clear();
@@ -150,8 +160,7 @@ public class GestioneConto {
         for (Movimento mov : listaMovimentos){
             txtfile +=  mov.getRigaCSV();
         }
-
-        Util helper = new Util();
+        
         helper.salvaFileTxt(contoCorrente+".csv", txtfile);
     }
         
@@ -184,11 +193,12 @@ public class GestioneConto {
             getSaldo();
         }
     
-
+    // method to print saldo account for the user
     private static void getSaldo() {
         System.out.println("Saldo corrente é $" + getSaldoValue());
     }
     
+    // method to ca 
     private static float getSaldoValue() {
         float saldo = 0;  
         for (float mov : movimento){

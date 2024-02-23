@@ -1,4 +1,4 @@
-package project;
+package tecProgrClass.day02;
 
 import java.time.LocalDateTime;
 

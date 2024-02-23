@@ -1,4 +1,4 @@
-package project;
+package tecProgrClass.day01;
 
 import java.util.Scanner;
 
