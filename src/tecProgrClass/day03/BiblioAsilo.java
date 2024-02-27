@@ -25,6 +25,7 @@ public class BiblioAsilo {
                 Libro[] books = searchBook2();
                 if (books.length>0)
                 System.out.println("the books available with this name are:");
+                else System.out.println("no books with this name");
                 for (Libro book : books) {
                     System.out.println(book.title + " " + book.author);
                 }
@@ -77,16 +78,6 @@ public class BiblioAsilo {
     }
 
 
-    public static void returnBook() {
-        int poslibro= -1;
-        poslibro = searchBook();
-        if (poslibro >= 0){
-            elencoLibri.get(poslibro).restituzioneLibro();
-            System.out.println("thanks for returning the book");
-        } else System.out.println("something went wrong please make sure that the name of the book is correct");
-   
-    }
-
     public static int searchBook(){
         int res = -1;
         System.out.println("which title are you looking for?");
@@ -121,14 +112,26 @@ public class BiblioAsilo {
         return booksOnTheSearch;
     }
 
+    public static void returnBook() {
+        int poslibro= -1;
+        poslibro = searchBook();
+        if (poslibro >= 0){
+            elencoLibri.get(poslibro).restituzioneLibro();
+            System.out.println("thanks for returning the book");
+            updateBiblio();
+        } else System.out.println("something went wrong please make sure that the name of the book is correct");
+   
+    }
 
     public static void lendBook() {
         int poslibro= -1;
         poslibro = searchBook();
         if (poslibro >= 0){
             boolean ok = elencoLibri.get(poslibro).Inprestito();
-            if (ok)
+            if (ok){
             System.out.println("the book is yours, please return");
+            updateBiblio();
+            }
         else System.out.println("book not available");
         }
     }
@@ -146,6 +149,13 @@ public class BiblioAsilo {
          * }
          */
         
+    }
+
+    public static void updateBiblio(){
+        String txfile = "title;author;dataout;databack\n";
+        for (Libro livro:elencoLibri){
+            txfile += livro.getInfoCSV();
+        }
     }
 
 
