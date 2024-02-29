@@ -22,8 +22,8 @@ public class BiblioAsilo {
                 listBook();
                 break;
             case "S":
-                Libro[] books = searchBook2();
-                if (books.length>0)
+                List<Libro> books = searchBook2();
+                if (books.size()>0)
                 System.out.println("the books available with this name are:");
                 else System.out.println("no books with this name");
                 for (Libro book : books) {
@@ -93,7 +93,7 @@ public class BiblioAsilo {
         return res;
     }
 
-    public static Libro[] searchBook2(){
+    public static List<Libro> searchBook2(){
         System.out.println("which title are you looking for?");
         Scanner reader = new Scanner(System.in);
         String titleToFind = reader.nextLine().toUpperCase().trim();
@@ -106,10 +106,7 @@ public class BiblioAsilo {
             }
         }
 
-        Libro [] booksOnTheSearch = new Libro[matchingLibros.size()];
-        matchingLibros.toArray(booksOnTheSearch);
-
-        return booksOnTheSearch;
+        return matchingLibros;
     }
 
     public static void returnBook() {

@@ -1,5 +1,5 @@
 /*
- * stampare la somma dei numero pari entre 0 and N
+ * stampare la somma dei numero prime entre 0 and N
  * start
  *  read N
  *  count 0
@@ -20,17 +20,17 @@ public class PrintPrimes {
         int n = Function.readNumber("insert an integer");
         System.out.println("the even numbers primes");
 
-        while (count<= n){
-        if (Function.isPrime(count))
-            System.out.print(count + " ");
+        while (count <= n) {
+            if (Function.isPrime(count))
+                System.out.print(count + " ");
             count++;
         }
-        /* 
-        while (count<= n){
-            System.out.print(count + " ");
-            count += 2;
-        }
-        */
+        /*
+         * while (count<= n){
+         * System.out.print(count + " ");
+         * count += 2;
+         * }
+         */
     }
-    
+
 }
