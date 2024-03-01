@@ -64,7 +64,8 @@ public class albergue {
                 totalPeople += rooms[index - 1];
             index++;
         }
-        System.out.println("there are " + totalPeople + " staying at the albergue and we have " + freeRooms);
+        System.out.println(
+                "there are " + totalPeople + " staying at the albergue and we have " + freeRooms + " free rooms");
     }
 
     private static void PickRoom(int rooms[]) {
