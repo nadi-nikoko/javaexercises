@@ -1,14 +1,13 @@
 package tecProgrClass.day04.albergue;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
 
 public class albergue {
     public static void main(String[] args) {
-        Scanner reader = new Scanner(System.in);
+
         Scanner readerTxt = new Scanner(System.in);
         System.out.println("how many rooms the albergue has?");
-        int rooms[] = new int[(reader.nextInt())];
+        int rooms[] = new int[NumberErrorCatcher()];
 
         while (true) {
             System.out.println("what can i help you?");
@@ -45,11 +44,18 @@ public class albergue {
     }
 
     private static void CheckOut(int[] rooms) {
-        Scanner reader = new Scanner(System.in);
         System.out.println("in which room where you staying?");
-        int checkRoom = reader.nextInt();
-        rooms[checkRoom + 1] = 0;
-        System.out.println("checkout succeded");
+        int checkRoom = NumberErrorCatcher();
+        if (checkRoom > 0) {
+            if (rooms[(checkRoom - 1)] == 0) {
+                System.out.println("the room is already empty");
+            } else {
+                rooms[checkRoom - 1] = 0;
+                System.out.println("checkout succeded");
+            }
+        } else
+            System.out.println("this room doesnt exist");
+
     }
 
     private static void AlbergueOccupation(int[] rooms) {
@@ -60,8 +66,10 @@ public class albergue {
             if (room == 0) {
                 System.out.println("the room " + index + " is empty");
                 freeRooms++;
-            } else
+            } else {
                 totalPeople += rooms[index - 1];
+                System.out.println("the room " + index + " is occupied with " + rooms[index - 1] + " guests.");
+            }
             index++;
         }
         System.out.println(
@@ -71,16 +79,32 @@ public class albergue {
     private static void PickRoom(int rooms[]) {
         int index = 1;
         boolean available = false;
+        boolean roomsAvailability = false;
+        for (int i = 0; i < rooms.length; i++) {
+            if (rooms[i] == 0) {
+                System.out.println("room number " + (i + 1) + " is available");
+                roomsAvailability = true;
+            }
+
+        }
         for (int i = 0; i < rooms.length; i++) {
             if (rooms[i] == 0 && !available) {
-                Scanner reader = new Scanner(System.in);
-                System.out.println("how many people are you?");
-                int numberPeople = reader.nextInt();
-                rooms[i] = numberPeople;
-                System.out.println("the room number " + index + " its available for you");
-                available = true;
+                System.out.println("which room would like to take?");
+                int number = NumberErrorCatcher();
+                int numberRoom = rooms[number - 1];
+                if (numberRoom == 0) {
+                    System.out.println("how many people are you?");
+                    int numberPeople = NumberErrorCatcher();
+                    rooms[number - 1] = numberPeople;
+                    System.out.println("the room number " + index + " is available for you");
+                    available = true;
+                } else
+                    System.out.println("room not available");
             }
             index++;
+        }
+        if (!roomsAvailability) {
+            System.out.println("we dont have any room available");
         }
     }
 
@@ -96,5 +120,22 @@ public class albergue {
         }
         System.out.println("----- we have " + freeRooms + " rooms available ------");
         return freeRooms;
+    }
+
+    private static int NumberErrorCatcher() {
+        Scanner reader = new Scanner(System.in);
+        int x = 0;
+
+        while (true) {
+            try {
+                x = reader.nextInt();
+                break;
+
+            } catch (Exception e) {
+                System.out.println("try again, wrong input, its only allowed numbers (ex:1,2,3)");
+                reader.nextLine();
+            }
+        }
+        return x;
     }
 }
