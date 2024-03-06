@@ -3,24 +3,14 @@ package personalprojecs;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-public class Artist {
+class Artist {
 
-    String artist;
-    String pronouns;
-    String email;
-    String website;
-    String videoLink;
-    String videoDescription;
-
-    public Artist(String artist, String pronouns, String email, String website, String videoLink,
-            String videoDescription) {
-        this.artist = artist.toUpperCase().trim();
-        this.pronouns = pronouns.toUpperCase().trim();
-        this.email = email.toUpperCase().trim();
-        this.website = website.toUpperCase().trim();
-        this.videoLink = videoLink.toUpperCase().trim();
-        this.videoDescription = videoDescription.toUpperCase().trim();
-    }
+    private String artist;
+    private String pronouns;
+    private String email;
+    private String website;
+    private String videoLink;
+    private String videoDescription;
 
     public static String dataCollect(String question) {
         Scanner reader = new Scanner(System.in);
@@ -30,14 +20,52 @@ public class Artist {
         return res;
     }
 
-    public static void saveFileCSV(String nameFile, String nametxt) {
-        try {
-            FileWriter artistData = new FileWriter(nameFile);
-            artistData.write(nametxt);
-            artistData.close();
-        } catch (Exception e) {
-            System.out.println("something went wrong");
-        }
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public String getPronouns() {
+        return pronouns;
+    }
+
+    public void setPronouns(String pronouns) {
+        this.pronouns = pronouns;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getVideoLink() {
+        return videoLink;
+    }
+
+    public void setVideoLink(String videoLink) {
+        this.videoLink = videoLink;
+    }
+
+    public String getVideoDescription() {
+        return videoDescription;
+    }
+
+    public void setVideoDescription(String videoDescription) {
+        this.videoDescription = videoDescription;
     }
 
 }
