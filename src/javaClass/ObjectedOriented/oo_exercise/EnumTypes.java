@@ -1,4 +1,4 @@
-package javaClass.ObjectedOriented;
+package javaClass.ObjectedOriented.oo_exercise;
 
 import java.util.EnumSet;
 

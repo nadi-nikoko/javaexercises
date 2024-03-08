@@ -1,8 +1,5 @@
 package personalprojecs;
 
-import java.io.FileWriter;
-import java.util.Scanner;
-
 class Artist {
 
     private String artist;
@@ -11,14 +8,37 @@ class Artist {
     private String website;
     private String videoLink;
     private String videoDescription;
+    // NONE as default so data goes to a list that is not in use by the website yet,
+    // once approved it goes to a VideoTime that is listed for the website
+    VideoTime time = VideoTime.NONE;
 
-    public static String dataCollect(String question) {
-        Scanner reader = new Scanner(System.in);
-        String res = "";
-        System.out.println(question);
-        res = reader.nextLine();
-        return res;
+    public Artist(String artist, String pronouns, String email, String website, String videoLink,
+            String videoDescription) {
+        this.artist = artist;
+        this.pronouns = pronouns;
+        this.email = email;
+        this.website = website;
+        this.videoLink = videoLink;
+        this.videoDescription = videoDescription;
+
     }
+
+    /*
+     * 
+     * (SHORT for < 3min,
+     * LONG for < 10min,
+     * ALL for all videos
+     * NONE(default) -- submitted but not approved yet)
+     */
+    public enum VideoTime {
+        SHORT, LONG, ALL, NONE;
+    }
+
+    /*
+     * 
+     * Methods for Get and Set Data;
+     * 
+     */
 
     public String getArtist() {
         return artist;
@@ -68,4 +88,11 @@ class Artist {
         this.videoDescription = videoDescription;
     }
 
+    public VideoTime getTime() {
+        return time;
+    }
+
+    public void setTime(VideoTime time) {
+        this.time = time;
+    }
 }

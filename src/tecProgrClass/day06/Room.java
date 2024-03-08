@@ -57,6 +57,8 @@ public class Room {
         return res;
     }
 
+    // methods for getler and setler
+
     public String getRoomNumber() {
         return roomNumber;
     }

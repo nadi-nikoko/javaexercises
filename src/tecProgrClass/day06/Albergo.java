@@ -15,12 +15,12 @@ public class Albergo {
         listRooms.add(newRoom);
         newRoom = new Room("102", 2, "king size bed");
         listRooms.add(newRoom);
-        System.out.println(listRooms.get(1).getCapacity());
         while (true) {
             Scanner reader = new Scanner(System.in);
             System.out.println("C to check in");
             System.out.println("R to rooms availble");
             System.out.println("T  to total guests");
+            System.out.println("CO  to check out");
             String menu = reader.nextLine().toUpperCase().trim();
             if (menu.equals("C")) {
                 checkIn();
@@ -31,6 +31,9 @@ public class Albergo {
             if (menu.equals("T")) {
                 System.out.println("there are " + getTotGuests() + " guests atm");
             }
+            if (menu.equals("CO")) {
+                checkOut();
+            }
 
         }
 
@@ -39,6 +42,7 @@ public class Albergo {
     static void checkIn() {
         Scanner reader = new Scanner(System.in);
         Scanner readerNum = new Scanner(System.in);
+        // collect data of client
         System.out.println("Ciao, whats your first name?");
         String firstName = reader.nextLine();
         System.out.println("second name");
@@ -46,10 +50,11 @@ public class Albergo {
         System.out.println("how many are you?");
         int numberOfGuests = readerNum.nextInt();
         Guest newGuest;
+        // add client to the system
         newGuest = new Guest(firstName, lastName);
         int index = -1;
         String chiave = "not available";
-        for (int i = 0; i <= listRooms.size(); i++) {
+        for (int i = 0; i < listRooms.size(); i++) {
             boolean available = listRooms.get(i).isAvailablefor(numberOfGuests);
             if (available) {
                 chiave = listRooms.get(i).getRoomNumber();
@@ -62,9 +67,22 @@ public class Albergo {
                 return;
             }
         }
-        // Guest newgGuest = createGuest();
-        for (int i = 0; i <= numberOfGuests; i++)
+        // Check the number of guests and add it to the room
+        for (int i = 0; i < numberOfGuests; i++)
             listRooms.get(index).addGuest(newGuest);
+    }
+
+    static void checkOut() {
+        Scanner reader = new Scanner(System.in);
+        System.out.println("welcome to check out, which room were you in?");
+        String room = reader.nextLine().trim();
+        for (int i = 0; i < listRooms.size(); i++) {
+            if (room.equals(listRooms.get(i).getRoomNumber())) {
+                listRooms.clear();
+                System.out.println("check out done");
+            }
+        }
+
     }
 
     static int getRoomsAvailable() {
