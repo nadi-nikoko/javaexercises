@@ -1,4 +1,4 @@
-package javaClass.ObjectedOriented.Cellphone_errore;
+package javaClass.ObjectedOriented.cellphone_ex03;
 
 public class App {
 
