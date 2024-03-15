@@ -13,7 +13,7 @@ public class Bug {
     public Bug(String error) {
         this.error = error;
         unassignedBugs.add(this);
-        Bug.prog = new ArrayList<>();
+        prog = new ArrayList<>();
     }
 
     public static void main(String[] args) {
@@ -53,7 +53,7 @@ public class Bug {
                 return;
             }
         }
-        Bug.prog.add(new Programmer(string, this));
+        prog.add(new Programmer(string, this));
         unassignedBugs.remove(this);
     }
 
@@ -78,10 +78,6 @@ public class Bug {
 
     public static Set<Bug> getUnassignedBugs() {
         return unassignedBugs;
-    }
-
-    public static void setUnassignedBugs(Set<Bug> unassignedBugs) {
-        Bug.unassignedBugs = unassignedBugs;
     }
 
 }
