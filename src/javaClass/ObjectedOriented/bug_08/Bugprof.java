@@ -1,18 +1,18 @@
-package ex;
+package javaClass.ObjectedOriented.bug_08;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Bug {
+public class Bugprof {
 
-    private static Set<Bug> bugs = new HashSet<>();
-    private static Set<Bug> unassigned = new HashSet<>();
+    private static Set<Bugprof> bugs = new HashSet<>();
+    private static Set<Bugprof> unassigned = new HashSet<>();
 
     private String descr;
     private String assigned;
 
-    public Bug(String descr) {
+    public Bugprof(String descr) {
         this.descr = descr;
         assigned = null;
         unassigned.add(this);
@@ -26,11 +26,11 @@ public class Bug {
 
     /* statics ....... */
 
-    public static Set<Bug> getUnassigned() {
+    public static Set<Bugprof> getUnassigned() {
         return unassigned;
     }
 
-    public static Set<Bug> getAssignedTo(String name) {
+    public static Set<Bugprof> getAssignedTo(String name) {
         return bugs.stream().filter(v -> v.assigned != null && v.assigned.equals(name))
                 .collect(Collectors.toSet());
     }
@@ -46,7 +46,7 @@ public class Bug {
 
     @Override
     public String toString() {
-        return "Bug [descr=" + descr + ", assignedTo=" + assigned + "]";
+        return "Bugprof [descr=" + descr + ", assignedTo=" + assigned + "]";
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Bug {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Bug other = (Bug) obj;
+        Bugprof other = (Bugprof) obj;
         if (descr == null) {
             if (other.descr != null)
                 return false;
